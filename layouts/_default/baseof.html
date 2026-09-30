@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ $titre := cond .IsHome (printf "%s — %s" site.Params.marque "vos quittances de loyer en un clic, chaque mois") (printf "%s — %s" .Title site.Params.marque) }}
+{{ $desc := or .Description site.Params.description | plainify | truncate 160 }}
+<title>{{ $titre }}</title>
+<meta name="description" content="{{ $desc }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<script>document.documentElement.classList.add("js")</script>
+<meta name="theme-color" content="#0b3f3a">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="{{ "images/logo.svg" | relURL }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="{{ site.Params.marque }}">
+<meta property="og:title" content="{{ $titre }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ "images/partage.png" | absURL }}">
+<meta property="og:video" content="{{ site.Params.videoFichier | absURL }}">
+<meta name="twitter:card" content="summary_large_image">
+{{ $css := resources.Get "css/main.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Quittance Tranquille en une minute",
+  "description": {{ site.Params.description }},
+  "thumbnailUrl": {{ site.Params.videoAffiche | absURL }},
+  "contentUrl": {{ site.Params.videoFichier | absURL }},
+  "uploadDate": "2026-09-29",
+  "inLanguage": "fr"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{- range $i, $f := site.Data.faq }}{{ if $i }},{{ end }}
+    { "@type": "Question", "name": {{ $f.q }}, "acceptedAnswer": { "@type": "Answer", "text": {{ $f.r | markdownify | plainify }} } }
+    {{- end }}
+  ]
+}
+</script>
+{{ end }}
+</head>
+<body class="{{ if .IsHome }}accueil{{ else }}page{{ end }}">
+  <a class="evitement" href="#contenu">Aller au contenu</a>
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="{{ "" | relURL }}"><img src="{{ "images/logo.svg" | relURL }}" alt="" width="36" height="36">Quittance <span>Tranquille</span></a>
+      <nav class="nav" aria-label="Navigation">
+        <a class="opt" href="{{ "" | relURL }}#video">Vidéo</a>
+        <a class="opt" href="{{ "" | relURL }}#etapes">Comment ça marche</a>
+        <a class="opt" href="{{ "" | relURL }}#donnees">Vos données</a>
+        <a class="btn btn-soleil btn-petit" href="{{ site.Params.outil }}">Essayer<span class="opt-txt"> gratuitement</span></a>
+      </nav>
+    </div>
+  </header>
+  <main id="contenu">
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer class="pied">
+    <div class="conteneur">
+      <div>
+        <a class="logo" href="{{ "" | relURL }}"><img src="{{ "images/logo.svg" | relURL }}" alt="" width="32" height="32">Quittance <span>Tranquille</span></a>
+        <p>Vos quittances de loyer, chaque mois en un clic. Gratuit, sans compte. <strong>Aucune donnée envoyée sur un serveur.</strong> Ce site n'utilise aucun cookie ni traceur.</p>
+      </div>
+      <div>
+        <h3>L'outil</h3>
+        <ul>
+          <li><a href="{{ site.Params.outil }}">Créer mes quittances</a></li>
+          <li><a href="{{ site.Params.outil }}guides/">Guides et modèles</a></li>
+          <li><a href="{{ site.Params.outil }}guides/recu-paiement-partiel/">Reçu de paiement partiel</a></li>
+          <li><a href="{{ site.Params.outil }}guides/revision-loyer-irl/">Révision du loyer (IRL)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Informations</h3>
+        <ul>
+          <li><a href="{{ "confidentialite/" | relURL }}">Confidentialité</a></li>
+          <li><a href="{{ "mentions-legales/" | relURL }}">Mentions légales</a></li>
+          <li><a href="{{ site.Params.edl }}">État des lieux Offline</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="conteneur copyright">© {{ now.Year }} {{ site.Params.marque }}</p>
+  </footer>
+  {{ $js := resources.Get "js/main.js" | minify | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+</body>
+</html>

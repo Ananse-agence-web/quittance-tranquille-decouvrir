@@ -1,0 +1,23 @@
+baseURL = "https://quittance.ananse.fr/"
+languageCode = "fr-FR"
+defaultContentLanguage = "fr"
+title = "Quittance Tranquille"
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
+
+[markup.goldmark.renderer]
+  unsafe = false
+
+[outputs]
+  home = ["HTML"]
+
+[params]
+  marque = "Quittance Tranquille"
+  description = "Quittance Tranquille : vos quittances de loyer chaque mois en un clic depuis votre agenda. Gratuit, sans compte, aucune donnée envoyée sur un serveur. Découvrez-le en vidéo."
+  email = "Ananse.Agence.Web@gmail.com"
+  # L'outil (site de l'application)
+  outil = "https://app-quittance.ananse.fr/"
+  # Outil payant d'états des lieux
+  edl = "https://etat-des-lieux.ananse.fr/"
+  videoFichier = "video/demo.mp4"
+  videoAffiche = "video/affiche.jpg"

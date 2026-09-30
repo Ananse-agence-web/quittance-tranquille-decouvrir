@@ -1,0 +1,163 @@
+{{ define "main" }}
+{{ $outil := site.Params.outil }}
+
+<!-- ============ Accroche ============ -->
+<section class="hero">
+  <div class="hero-fond" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="conteneur hero-grille">
+    <div class="hero-texte">
+      <p class="surtitre"><span class="point"></span>Gratuit · Sans compte · Pour les bailleurs</p>
+      <h1>Vos quittances de loyer, <em>chaque mois en un&nbsp;clic.</em></h1>
+      <p class="hero-sous">Renseignez le bail une fois, ajoutez les rappels à votre agenda. Le jour du loyer, un clic sur le rappel prépare la quittance en PDF, prête à envoyer.</p>
+      <p class="hero-promesse">{{ partial "icone.html" "cadenas" }}<span><strong>Aucune donnée n'est envoyée sur un serveur.</strong> Tout reste sur votre téléphone ou votre ordinateur.</span></p>
+      <div class="actions">
+        <a class="btn btn-soleil btn-grand" href="{{ $outil }}#outil">Créer mes quittances</a>
+        <a class="btn btn-verre btn-grand" href="#video">{{ partial "icone.html" "lecture" }}Voir la vidéo (1 min)</a>
+      </div>
+    </div>
+    <div class="hero-visuel" aria-hidden="true">
+      <div class="telephone telephone-a"><img src="{{ "images/ecran-quittance.jpg" | relURL }}" alt="" width="585" height="1266"></div>
+      <div class="telephone telephone-b"><img src="{{ "images/ecran-apercu.jpg" | relURL }}" alt="" width="585" height="1266"></div>
+      <div class="notif">
+        <div class="notif-date"><b>OCT</b><span>5</span></div>
+        <div><small>Agenda · 09:00</small><strong>Loyer de Camille — quittance à générer</strong><em>Touchez pour ouvrir la quittance</em></div>
+      </div>
+      <div class="badge-pdf">{{ partial "icone.html" "pdf" }}quittance-2026-10.pdf</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Vidéo ============ -->
+<section class="section" id="video">
+  <div class="conteneur">
+    <div class="entete-section revele">
+      <p class="surtitre-sombre">En une minute</p>
+      <h2>Regardez comment ça marche</h2>
+    </div>
+    <div class="video-cadre revele">
+      <video id="demo" controls preload="none" playsinline poster="{{ site.Params.videoAffiche | relURL }}" width="1920" height="1080">
+        <source src="{{ site.Params.videoFichier | relURL }}" type="video/mp4">
+        Votre navigateur ne lit pas la vidéo : <a href="{{ site.Params.videoFichier | relURL }}">téléchargez-la</a>.
+      </video>
+      <button class="video-lancer" type="button" aria-label="Lire la vidéo de présentation">{{ partial "icone.html" "lecture" }}</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Étapes ============ -->
+<section class="section section-teinte" id="etapes">
+  <div class="conteneur">
+    <div class="entete-section revele">
+      <p class="surtitre-sombre">Trois étapes, une seule fois</p>
+      <h2>Configurez une fois.<br>Cliquez chaque mois.</h2>
+    </div>
+    <div class="etape revele">
+      <div class="etape-texte">
+        <span class="etape-num">1</span>
+        <h3>Renseignez le bail</h3>
+        <p>Bailleur, locataire, adresse du logement, loyer et charges, jour du paiement. Vide, meublé ou colocation. L'aperçu de la quittance se met à jour pendant que vous tapez.</p>
+      </div>
+      <div class="telephone petit"><img src="{{ "images/ecran-bail.jpg" | relURL }}" alt="Formulaire du bail dans Quittance Tranquille" width="585" height="1266" loading="lazy"></div>
+    </div>
+    <div class="etape inverse revele">
+      <div class="etape-texte">
+        <span class="etape-num">2</span>
+        <h3>Ajoutez les rappels à votre agenda</h3>
+        <p>Le jour même, la veille, trois jours ou une semaine avant : vous choisissez. Un fichier .ics s'ajoute à Google Agenda, à l'iPhone ou à Outlook. En option : un rappel « loyer bien arrivé ? » et la révision annuelle du loyer.</p>
+      </div>
+      <div class="telephone petit"><img src="{{ "images/ecran-rappels.jpg" | relURL }}" alt="Choix des rappels d'agenda" width="585" height="1266" loading="lazy"></div>
+    </div>
+    <div class="etape revele">
+      <div class="etape-texte">
+        <span class="etape-num">3</span>
+        <h3>Chaque mois, un clic sur le rappel</h3>
+        <p>Le loyer est arrivé ? Touchez le lien du rappel : la quittance du mois s'ouvre, déjà remplie, avec la bonne période. Téléchargez le PDF, ou partagez-le directement au locataire.</p>
+      </div>
+      <div class="telephone petit"><img src="{{ "images/ecran-quittance.jpg" | relURL }}" alt="Quittance du mois pré-remplie" width="585" height="1266" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Données ============ -->
+<section class="section section-nuit" id="donnees">
+  <div class="conteneur donnees">
+    <div class="revele">
+      <p class="surtitre"><span class="point"></span>Message n° 1</p>
+      <h2>Aucune donnée n'est envoyée sur un serveur.</h2>
+      <p class="grand">Pas de compte à créer, pas de base de données, pas de cloud. Les noms, les adresses et les montants ne quittent jamais votre appareil.</p>
+      <ul class="liste-coches">
+        <li>Les informations du bail sont rangées dans le lien de votre rappel, après le « # » : cette partie d'une adresse web n'est <strong>jamais transmise</strong> au site.</li>
+        <li>Le PDF est fabriqué sur votre téléphone ou votre ordinateur.</li>
+        <li>Aucun cookie, aucune mesure d'audience, aucun traceur.</li>
+        <li>La quittance ne part jamais toute seule : c'est vous qui l'envoyez.</li>
+      </ul>
+    </div>
+    <div class="schema revele" aria-hidden="true">
+      <div class="schema-bloc ok">{{ partial "icone.html" "telephone" }}<strong>Votre appareil</strong><span>bail · quittances · PDF</span></div>
+      <div class="schema-coupure"><span>✕</span></div>
+      <div class="schema-bloc ko">{{ partial "icone.html" "serveur" }}<strong>Serveur</strong><span>rien du tout</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Atouts ============ -->
+<section class="section">
+  <div class="conteneur">
+    <div class="entete-section revele">
+      <p class="surtitre-sombre">Tout ce qu'il faut, rien de plus</p>
+      <h2>Pensé pour les bailleurs pressés</h2>
+    </div>
+    <div class="atouts">
+      <div class="atout revele">{{ partial "icone.html" "pdf" }}<h3>Une quittance en règle</h3><p>Loyer et charges séparés, période, date du paiement, montant en lettres, mention de gratuité.</p></div>
+      <div class="atout revele">{{ partial "icone.html" "recu" }}<h3>Reçu si paiement partiel</h3><p>Une bascule, et le document devient un reçu : somme versée, total dû, reste dû.</p></div>
+      <div class="atout revele">{{ partial "icone.html" "agenda" }}<h3>Fins de mois gérées</h3><p>Loyer le 30 ou le 31 ? Dernier jour du mois ou le 28, au choix. Mensuel, trimestriel ou annuel.</p></div>
+      <div class="atout revele">{{ partial "icone.html" "graphique" }}<h3>Révision IRL</h3><p>Un rappel annuel, et le montant se corrige d'un clic dans la page de la quittance.</p></div>
+      <div class="atout revele">{{ partial "icone.html" "partager" }}<h3>Envoi en un geste</h3><p>PDF bien nommé, e-mail pré-rédigé, ou partage direct depuis le téléphone.</p></div>
+      <div class="atout revele">{{ partial "icone.html" "signature" }}<h3>Signature au doigt</h3><p>Signez une fois ; la signature peut rester mémorisée sur votre appareil, seulement.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quittance / reçu ============ -->
+<section class="section section-teinte">
+  <div class="conteneur comparaison">
+    <div class="revele">
+      <p class="surtitre-sombre">Le bon document, à chaque fois</p>
+      <h2>Quittance ou reçu&nbsp;?</h2>
+      <p class="grand-sombre">Une quittance atteste d'un paiement <strong>intégral</strong>. En cas de paiement partiel, la loi prévoit un <strong>reçu</strong>. Quittance Tranquille vous évite l'erreur.</p>
+      <a href="{{ $outil }}guides/difference-quittance-recu/">Comprendre la différence →</a>
+    </div>
+    <div class="duo revele">
+      <div class="doc-mini"><b>Quittance de loyer</b><span>Loyer 700,00 €</span><span>Charges 50,00 €</span><i class="vert">Total payé 750,00 €</i></div>
+      <div class="doc-mini decale"><b>Reçu de paiement partiel</b><span>Total dû 750,00 €</span><span>Somme versée 400,00 €</span><i class="rouge">Reste dû 350,00 €</i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section faq">
+  <div class="etroit">
+    <div class="entete-section revele"><h2>Questions fréquentes</h2></div>
+    {{ range site.Data.faq }}
+    <details class="revele"><summary>{{ .q }}</summary>{{ .r | markdownify }}</details>
+    {{ end }}
+  </div>
+</section>
+
+<!-- ============ Appel final ============ -->
+<section class="final">
+  <div class="conteneur final-carte revele">
+    <img src="{{ "images/logo.svg" | relURL }}" alt="" width="72" height="72">
+    <h2>Votre prochaine quittance est à une minute.</h2>
+    <p>Gratuit. Sans compte. Aucune donnée envoyée sur un serveur.</p>
+    <a class="btn btn-soleil btn-grand" href="{{ $outil }}#outil">Créer mes quittances maintenant</a>
+  </div>
+  <div class="conteneur">
+    <a class="promo-edl revele" href="{{ site.Params.edl }}">
+      <span class="promo-icone">{{ partial "icone.html" "maison" }}</span>
+      <span><strong>Vous faites aussi les états des lieux ?</strong> État des lieux Offline : entrée et sortie sur téléphone, photos, comparaison automatique, rapport PDF. Même sans réseau.</span>
+      <span class="fleche">→</span>
+    </a>
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,9 @@
+public/
+resources/
+.hugo_build.lock
+node_modules/
+video/capture/
+video/sortie/
+video/__pycache__/
+video/voix/*.txt
+video/voix/_tts.ps1

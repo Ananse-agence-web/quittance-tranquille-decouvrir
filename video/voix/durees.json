@@ -1,0 +1,38 @@
+{
+  "01_intro": {
+    "fichier": "01_intro.wav",
+    "duree": 4.803310657596372
+  },
+  "02_donnees": {
+    "fichier": "02_donnees.wav",
+    "duree": 7.4287981859410435
+  },
+  "03_bail": {
+    "fichier": "03_bail.wav",
+    "duree": 6.068888888888889
+  },
+  "04_agenda": {
+    "fichier": "04_agenda.wav",
+    "duree": 7.6932199546485265
+  },
+  "05_rappel": {
+    "fichier": "05_rappel.wav",
+    "duree": 8.214467120181405
+  },
+  "06_quittance": {
+    "fichier": "06_quittance.wav",
+    "duree": 5.808095238095238
+  },
+  "07_recu": {
+    "fichier": "07_recu.wav",
+    "duree": 6.192675736961451
+  },
+  "08_envoi": {
+    "fichier": "08_envoi.wav",
+    "duree": 6.912176870748299
+  },
+  "09_outro": {
+    "fichier": "09_outro.wav",
+    "duree": 5.932426303854875
+  }
+}
