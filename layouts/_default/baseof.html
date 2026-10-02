@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {{ $titre := cond .IsHome (printf "%s — %s" site.Params.marque "vos quittances de loyer en un clic, chaque mois") (printf "%s — %s" .Title site.Params.marque) }}
-{{ $desc := or .Description site.Params.description | plainify | truncate 160 }}
+{{ $desc := or .Description site.Data.infos.description | plainify | truncate 160 }}
 <title>{{ $titre }}</title>
 <meta name="description" content="{{ $desc }}">
 <link rel="canonical" href="{{ .Permalink }}">
@@ -31,7 +31,7 @@
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Quittance Tranquille en une minute",
-  "description": {{ site.Params.description }},
+  "description": {{ site.Data.infos.description }},
   "thumbnailUrl": {{ site.Params.videoAffiche | absURL }},
   "contentUrl": {{ site.Params.videoFichier | absURL }},
   "uploadDate": "2026-09-29",
@@ -43,7 +43,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {{- range $i, $f := site.Data.faq }}{{ if $i }},{{ end }}
+    {{- range $i, $f := site.Data.faq.faq }}{{ if $i }},{{ end }}
     { "@type": "Question", "name": {{ $f.q }}, "acceptedAnswer": { "@type": "Answer", "text": {{ $f.r | markdownify | plainify }} } }
     {{- end }}
   ]
@@ -52,15 +52,16 @@
 {{ end }}
 </head>
 <body class="{{ if .IsHome }}accueil{{ else }}page{{ end }}">
-  <a class="evitement" href="#contenu">Aller au contenu</a>
+  <a class="evitement" href="#contenu">{{ site.Data.accueil.pied01 }}</a>
   <header class="entete">
     <div class="conteneur">
       <a class="logo" href="{{ "" | relURL }}"><img src="{{ "images/logo.svg" | relURL }}" alt="" width="36" height="36">Quittance <span>Tranquille</span></a>
       <nav class="nav" aria-label="Navigation">
-        <a class="opt" href="{{ "" | relURL }}#video">Vidéo</a>
-        <a class="opt" href="{{ "" | relURL }}#etapes">Comment ça marche</a>
-        <a class="opt" href="{{ "" | relURL }}#donnees">Vos données</a>
-        <a class="btn btn-soleil btn-petit" href="{{ site.Params.outil }}">Essayer<span class="opt-txt"> gratuitement</span></a>
+        <a class="opt" href="{{ "" | relURL }}#video">{{ site.Data.accueil.pied02 }}</a>
+        <a class="opt" href="{{ "" | relURL }}#etapes">{{ site.Data.accueil.pied03 }}</a>
+        <a class="opt" href="{{ "" | relURL }}#donnees">{{ site.Data.accueil.pied04 }}</a>
+        {{- with site.GetPage "/blog" }}{{ if where .RegularPages "Draft" false }}<a class="opt" href="{{ .RelPermalink }}">Blog</a>{{ end }}{{ end }}
+        <a class="btn btn-soleil btn-petit" href="{{ site.Params.outil }}">{{ site.Data.accueil.pied05 | safeHTML }}</a>
       </nav>
     </div>
   </header>
@@ -71,10 +72,10 @@
     <div class="conteneur">
       <div>
         <a class="logo" href="{{ "" | relURL }}"><img src="{{ "images/logo.svg" | relURL }}" alt="" width="32" height="32">Quittance <span>Tranquille</span></a>
-        <p>Vos quittances de loyer, chaque mois en un clic. Gratuit, sans compte. <strong>Aucune donnée envoyée sur un serveur.</strong> Ce site n'utilise aucun cookie ni traceur.</p>
+        <p>{{ site.Data.accueil.pied06 | safeHTML }}</p>
       </div>
       <div>
-        <h3>L'outil</h3>
+        <h3>{{ site.Data.accueil.pied07 }}</h3>
         <ul>
           <li><a href="{{ site.Params.outil }}">Créer mes quittances</a></li>
           <li><a href="{{ site.Params.outil }}guides/">Guides et modèles</a></li>
@@ -83,7 +84,7 @@
         </ul>
       </div>
       <div>
-        <h3>Informations</h3>
+        <h3>{{ site.Data.accueil.pied08 }}</h3>
         <ul>
           <li><a href="{{ "confidentialite/" | relURL }}">Confidentialité</a></li>
           <li><a href="{{ "mentions-legales/" | relURL }}">Mentions légales</a></li>
@@ -91,7 +92,7 @@
         </ul>
       </div>
     </div>
-    <p class="conteneur copyright">© {{ now.Year }} {{ site.Params.marque }}</p>
+    <p class="conteneur copyright">© {{ now.Year }} {{ with site.Data.infos.raison_sociale }}{{ . }}{{ else }}{{ site.Params.marque }}{{ end }}{{ with site.Data.infos.siret }} · SIRET {{ . }}{{ end }}{{ with site.Data.infos.adresse }} · {{ . }}{{ end }}{{ with site.Data.infos.telephone }} · {{ . }}{{ end }}</p>
   </footer>
   {{ $js := resources.Get "js/main.js" | minify | fingerprint }}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>

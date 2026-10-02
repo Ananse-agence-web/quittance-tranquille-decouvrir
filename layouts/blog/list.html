@@ -1,0 +1,15 @@
+{{ define "main" }}
+<article class="article">
+  <div class="etroit">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+    <ul class="articles">
+      {{- range .Pages.ByDate.Reverse }}
+      <li><a href="{{ .RelPermalink }}"><strong>{{ .Title }}</strong></a><br><small>{{ .Date | time.Format "2 January 2006" }}</small>{{ with .Description }}<br>{{ . }}{{ end }}</li>
+      {{- else }}
+      <li>Pas encore d'article.</li>
+      {{- end }}
+    </ul>
+  </div>
+</article>
+{{ end }}

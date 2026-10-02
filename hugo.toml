@@ -12,9 +12,8 @@ disableKinds = ["taxonomy", "term"]
   home = ["HTML"]
 
 [params]
+  # E-mail, slogan, description, SIRET, téléphone : data/infos.yaml (modifiables dans /admin/)
   marque = "Quittance Tranquille"
-  description = "Quittance Tranquille : vos quittances de loyer chaque mois en un clic depuis votre agenda. Gratuit, sans compte, aucune donnée envoyée sur un serveur. Découvrez-le en vidéo."
-  email = "Ananse.Agence.Web@gmail.com"
   # L'outil (site de l'application)
   outil = "https://app-quittance.ananse.fr/"
   # Outil payant d'états des lieux

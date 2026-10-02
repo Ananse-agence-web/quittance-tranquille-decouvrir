@@ -239,3 +239,8 @@ p { margin: 0 0 1em; }
 /* En-tête compact sur petit écran */
 .nav .btn { white-space: nowrap; }
 @media (max-width: 480px) { .nav .opt-txt { display: none; } .logo { font-size: 1rem; } }
+
+/* Blog */
+.articles { list-style: none; padding: 0; }
+.articles li { padding: 1rem 0; border-bottom: 1px solid rgba(0,0,0,.1); }
+.article img { max-width: 100%; height: auto; border-radius: 12px; }

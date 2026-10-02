@@ -1,0 +1,139 @@
+# Decap CMS — https://quittance.ananse.fr/admin/
+# Chaque enregistrement crée un commit sur main : Cloudflare republie le site en 1 à 2 minutes.
+backend:
+  name: github
+  repo: Ananse-agence-web/quittance-tranquille-decouvrir
+  branch: main
+  base_url: https://www.ananse.fr
+  auth_endpoint: api/auth
+
+locale: fr
+site_url: https://quittance.ananse.fr
+display_url: https://quittance.ananse.fr
+logo_url: https://quittance.ananse.fr/images/logo.svg
+
+media_folder: static/images/blog
+public_folder: /images/blog
+
+collections:
+  - name: blog
+    label: "📝 Blog"
+    label_singular: article
+    folder: content/blog
+    create: true
+    slug: "{{fields.slug}}"
+    filter: { field: slug, pattern: "." }
+    sortable_fields: [date, title]
+    summary: "{{title}} — {{date | date('DD/MM/YYYY')}}"
+    fields:
+      - { name: title, label: Titre, widget: string }
+      - { name: slug, label: "Adresse (slug)", widget: string, pattern: ["^[a-z0-9]+(-[a-z0-9]+)*$", "Minuscules, chiffres et tirets, sans accent"], hint: "Donne l'adresse /blog/mon-article/. Ne plus la changer une fois publiée." }
+      - { name: date, label: Date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+      - { name: description, label: "Résumé (Google et cartes d'articles)", widget: text }
+      - { name: image, label: "Photo principale", widget: image, required: false }
+      - { name: draft, label: "Brouillon (non publié)", widget: boolean, default: false, required: false }
+      - { name: body, label: Article, widget: markdown }
+
+  - name: accueil
+    label: "🏠 Page d'accueil"
+    editor: { preview: false }
+    files:
+      - name: faq
+        label: Questions fréquentes
+        file: data/faq.yaml
+        fields:
+          - name: faq
+            label: Questions
+            widget: list
+            summary: "{{q}}"
+            fields:
+              - { name: q, label: Question, widget: string }
+              - { name: r, label: Réponse, widget: markdown, buttons: [bold, italic, link, bulleted-list], editor_components: [] }
+      - name: textes
+        label: "Tous les textes (accueil, menu, pied de page)"
+        file: data/accueil.yaml
+        fields:
+          - { name: a01, label: "P · Gratuit · Sans compte · Pour les bailleurs", widget: string, hint: "Les balises <…> font la mise en forme : les garder." }
+          - { name: a02, label: "H1 · Vos quittances de loyer, chaque mois en un clic.", widget: string, hint: "Les balises <…> font la mise en forme : les garder." }
+          - { name: a03, label: "P · Renseignez le bail une fois, ajoutez les rappels à votre agenda. Le jo…", widget: text }
+          - { name: a04, label: "A · Créer mes quittances", widget: string }
+          - { name: a05, label: "SMALL · Agenda · 09:00", widget: string }
+          - { name: a06, label: "STRONG · Loyer de Camille — quittance à générer", widget: string }
+          - { name: a07, label: "P · En une minute", widget: string }
+          - { name: a08, label: "H2 · Regardez comment ça marche", widget: string }
+          - { name: a09, label: "A · téléchargez-la", widget: string }
+          - { name: a10, label: "P · Trois étapes, une seule fois", widget: string }
+          - { name: a11, label: "H2 · Configurez une fois.Cliquez chaque mois.", widget: string, hint: "Les balises <…> font la mise en forme : les garder." }
+          - { name: a12, label: "H3 · Renseignez le bail", widget: string }
+          - { name: a13, label: "P · Bailleur, locataire, adresse du logement, loyer et charges, jour du pa…", widget: text }
+          - { name: a14, label: "H3 · Ajoutez les rappels à votre agenda", widget: string }
+          - { name: a15, label: "P · Le jour même, la veille, trois jours ou une semaine avant : vous chois…", widget: text }
+          - { name: a16, label: "H3 · Chaque mois, un clic sur le rappel", widget: string }
+          - { name: a17, label: "P · Le loyer est arrivé ? Touchez le lien du rappel : la quittance du mois…", widget: text }
+          - { name: a18, label: "P · Message n° 1", widget: string, hint: "Les balises <…> font la mise en forme : les garder." }
+          - { name: a19, label: "H2 · Aucune donnée n'est envoyée sur un serveur.", widget: string }
+          - { name: a20, label: "P · Pas de compte à créer, pas de base de données, pas de cloud. Les noms,…", widget: text }
+          - { name: a21, label: "LI · Les informations du bail sont rangées dans le lien de votre rappel, ap…", widget: text, hint: "Les balises <…> font la mise en forme : les garder." }
+          - { name: a22, label: "LI · Le PDF est fabriqué sur votre téléphone ou votre ordinateur.", widget: string }
+          - { name: a23, label: "LI · Aucun cookie, aucune mesure d'audience, aucun traceur.", widget: string }
+          - { name: a24, label: "LI · La quittance ne part jamais toute seule : c'est vous qui l'envoyez.", widget: string }
+          - { name: a25, label: "STRONG · Votre appareil", widget: string }
+          - { name: a26, label: "SPAN · bail · quittances · PDF", widget: string }
+          - { name: a27, label: "STRONG · Serveur", widget: string }
+          - { name: a28, label: "SPAN · rien du tout", widget: string }
+          - { name: a29, label: "P · Tout ce qu'il faut, rien de plus", widget: string }
+          - { name: a30, label: "H2 · Pensé pour les bailleurs pressés", widget: string }
+          - { name: a31, label: "H3 · Une quittance en règle", widget: string }
+          - { name: a32, label: "P · Loyer et charges séparés, période, date du paiement, montant en lettre…", widget: text }
+          - { name: a33, label: "H3 · Reçu si paiement partiel", widget: string }
+          - { name: a34, label: "P · Une bascule, et le document devient un reçu : somme versée, total dû, …", widget: string }
+          - { name: a35, label: "H3 · Fins de mois gérées", widget: string }
+          - { name: a36, label: "P · Loyer le 30 ou le 31 ? Dernier jour du mois ou le 28, au choix. Mensue…", widget: text }
+          - { name: a37, label: "H3 · Révision IRL", widget: string }
+          - { name: a38, label: "P · Un rappel annuel, et le montant se corrige d'un clic dans la page de l…", widget: text }
+          - { name: a39, label: "H3 · Envoi en un geste", widget: string }
+          - { name: a40, label: "P · PDF bien nommé, e-mail pré-rédigé, ou partage direct depuis le télépho…", widget: string }
+          - { name: a41, label: "H3 · Signature au doigt", widget: string }
+          - { name: a42, label: "P · Signez une fois ; la signature peut rester mémorisée sur votre apparei…", widget: text }
+          - { name: a43, label: "P · Le bon document, à chaque fois", widget: string }
+          - { name: a44, label: "H2 · Quittance ou reçu ?", widget: string }
+          - { name: a45, label: "P · Une quittance atteste d'un paiement intégral. En cas de paiement parti…", widget: text, hint: "Les balises <…> font la mise en forme : les garder." }
+          - { name: a46, label: "A · Comprendre la différence →", widget: string }
+          - { name: a47, label: "SPAN · Loyer 700,00 €", widget: string }
+          - { name: a48, label: "SPAN · Charges 50,00 €", widget: string }
+          - { name: a49, label: "SPAN · Total dû 750,00 €", widget: string }
+          - { name: a50, label: "SPAN · Somme versée 400,00 €", widget: string }
+          - { name: a51, label: "H2 · Questions fréquentes", widget: string }
+          - { name: a52, label: "H2 · Votre prochaine quittance est à une minute.", widget: string }
+          - { name: a53, label: "P · Gratuit. Sans compte. Aucune donnée envoyée sur un serveur.", widget: string }
+          - { name: a54, label: "A · Créer mes quittances maintenant", widget: string }
+          - { name: pied01, label: "A · Aller au contenu", widget: string }
+          - { name: pied02, label: "A · Vidéo", widget: string }
+          - { name: pied03, label: "A · Comment ça marche", widget: string }
+          - { name: pied04, label: "A · Vos données", widget: string }
+          - { name: pied05, label: "A · Essayer gratuitement", widget: string, hint: "Les balises <…> font la mise en forme : les garder." }
+          - { name: pied06, label: "P · Vos quittances de loyer, chaque mois en un clic. Gratuit, sans compte.…", widget: text, hint: "Les balises <…> font la mise en forme : les garder." }
+          - { name: pied07, label: "H3 · L'outil", widget: string }
+          - { name: pied08, label: "H3 · Informations", widget: string }
+  - name: infos
+    label: "ℹ️ Infos"
+    editor: { preview: false }
+    files:
+      - name: infos
+        label: Coordonnées et description
+        file: data/infos.yaml
+        fields:
+          - { name: description, label: "Description (Google)", widget: text }
+          - { name: email, label: E-mail de contact, widget: string }
+          - { name: telephone, label: Téléphone, widget: string, required: false }
+          - { name: raison_sociale, label: "Raison sociale", widget: string, required: false }
+          - { name: siret, label: SIRET, widget: string, required: false }
+          - { name: adresse, label: Adresse, widget: string, required: false }
+
+  - name: legal
+    label: "⚖️ Pages"
+    editor: { preview: false }
+    files:
+      - { name: mentions, label: Mentions légales, file: content/mentions-legales.md, fields: &page [ { name: title, label: Titre, widget: string }, { name: description, label: "Description (Google)", widget: text, required: false }, { name: robots, widget: hidden, required: false }, { name: body, label: Texte, widget: markdown } ] }
+      - { name: confidentialite, label: Confidentialité, file: content/confidentialite.md, fields: *page }
+      - { name: blog, label: "Blog (en-tête)", file: content/blog/_index.md, fields: [ { name: title, label: Titre, widget: string }, { name: description, label: "Description (Google)", widget: text, required: false } ] }
